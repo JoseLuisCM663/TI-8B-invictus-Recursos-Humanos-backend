@@ -14,7 +14,7 @@ class UsuarioCreate(UsuarioBase):
 
 class UsuarioResponse(UsuarioBase):
     ID: int
-    Persona_Id: int
+    Persona_Id: Optional[int] = None  
     Estatus: str
     Fecha_Registro: datetime
     Fecha_Actualizacion: datetime
