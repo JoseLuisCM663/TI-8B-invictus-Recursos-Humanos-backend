@@ -6,7 +6,7 @@ class Usuario(Base):
     
     ID = Column(Integer, primary_key=True, autoincrement=True, index=True)
     Nombre_Usuario = Column(String(50), unique=True, index=True)
-    Persona_Id = Column(Integer, nullable=True)  # Elimina ForeignKey temporalmente 
+    Persona_Id = Column(Integer, nullable=True, unique=True)  # Elimina ForeignKey temporalmente 
     Correo_Electronico = Column(String(100), unique=True, index=True)
     Contrasena = Column(String(255))
     Numero_Telefonico_Movil = Column(String(20))

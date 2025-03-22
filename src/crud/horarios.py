@@ -24,3 +24,43 @@ def create_horario(db: Session, horario: TbbHorariosCreate):
 
     return nuevo_horario
 
+def All_horarios(db: Session):
+    """
+    Obtener todos los horarios de la base de datos.
+    """
+    return db.query(TbbHorarios).all()
+
+def get_horario_by_id(db: Session, horario_id: int):
+    """
+    Obtener un horario por su ID.
+    """
+    return db.query(TbbHorarios).filter(TbbHorarios.ID == horario_id).first()
+
+def update_horario(db: Session, horario_id: int, horario_data: TbbHorariosCreate):
+    """
+    Actualizar un horario existente.
+    """
+    horario = db.query(TbbHorarios).filter(TbbHorarios.ID == horario_id).first()
+    if not horario:
+        return None
+
+    for key, value in horario_data.dict(exclude_unset=True).items():
+        setattr(horario, key, value)
+
+    horario.Fecha_Actualizacion = datetime.now()  # Actualizar la fecha de modificación
+    db.commit()
+    db.refresh(horario)
+    return horario
+
+def delete_horario(db: Session, horario_id: int):
+    """
+    Eliminar un horario por su ID.
+    """
+    horario = db.query(TbbHorarios).filter(TbbHorarios.ID == horario_id).first()
+    if not horario:
+        return None
+
+    db.delete(horario)
+    db.commit()
+    return horario
+
