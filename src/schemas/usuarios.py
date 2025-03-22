@@ -21,3 +21,7 @@ class UsuarioResponse(UsuarioBase):
 
     class Config:
         orm_mode = True
+    
+class LoginRequest(BaseModel):
+    Correo_Electronico: str
+    Contrasena: str
