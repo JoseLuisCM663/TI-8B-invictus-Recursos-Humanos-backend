@@ -16,6 +16,6 @@ def registrar_usuario(usuario: UsuarioCreate, db: Session = Depends(get_db)):
     if not db_usuario:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
-            detail="El correo electrónico ya está registrado",
+            detail="El nombre de usuario o correo electronico ya está registrado",
         )
     return db_usuario
