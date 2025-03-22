@@ -1,14 +1,14 @@
 # routers/usuarios.py
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
+from models.usuarios import Usuario
 from schemas.usuarios import UsuarioCreate, UsuarioResponse, LoginRequest
-from crud.usuarios import crear_usuario, autenticar_usuario, crear_token_acceso, ACCESS_TOKEN_EXPIRE_MINUTES
+from crud.usuarios import crear_usuario, autenticar_usuario
 from database import get_db  # Asegúrate de importar get_db
-from datetime import datetime,timedelta
+from datetime import timedelta
+from config.jwt import crear_token_acceso, obtener_usuario_actual, ACCESS_TOKEN_EXPIRE_MINUTES  # Importa desde config/jwt.py
 
-
-
-router = APIRouter()
+router = APIRouter() 
 
 @router.post("/registro/", response_model=UsuarioResponse)
 def registrar_usuario(usuario: UsuarioCreate, db: Session = Depends(get_db)):
@@ -35,3 +35,13 @@ def login(login_request: LoginRequest, db: Session = Depends(get_db)):
 
     # Devolver el token
     return {"access_token": access_token, "token_type": "bearer"}
+
+# Ruta protegida que requiere autenticación
+@router.get("/usuario_protegido")
+def obtener_usuario_protegido(usuario: Usuario = Depends(obtener_usuario_actual)):
+    # Aquí el usuario ya está autenticado, puedes devolver información segura
+    return {
+        "message": "Acceso autorizado",
+        "usuario": usuario.Correo_Electronico,
+        "nombre_usuario": usuario.Nombre_Usuario,
+    }

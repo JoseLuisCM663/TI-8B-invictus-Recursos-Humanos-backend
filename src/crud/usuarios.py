@@ -1,17 +1,10 @@
-# crud/usuarios.py
 from sqlalchemy.orm import Session
 from models.usuarios import Usuario
 from schemas.usuarios import UsuarioCreate
 from passlib.context import CryptContext
-from datetime import datetime, timedelta
+from datetime import datetime
 from fastapi import HTTPException, status
-from jose import jwt
-from typing import Optional
 
-# Configuración para JWT
-SECRET_KEY = "tu_clave_secreta"  # Cambia esto por una clave segura
-ALGORITHM = "HS256"
-ACCESS_TOKEN_EXPIRE_MINUTES = 30  # Duración del token
 
 # Configuración para el hashing de contraseñas
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
@@ -20,6 +13,7 @@ pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 def hash_contrasena(contrasena: str):
     return pwd_context.hash(contrasena)
 
+# Función para crear un nuevo usuario
 def crear_usuario(db: Session, usuario: UsuarioCreate):
     # Verificar si el correo ya está registrado
     db_usuario = db.query(Usuario).filter(
@@ -51,23 +45,11 @@ def crear_usuario(db: Session, usuario: UsuarioCreate):
     db.refresh(nuevo_usuario)
     return nuevo_usuario
 
-
 # Función para verificar la contraseña
 def verificar_contrasena(contrasena_plana: str, contrasena_hasheada: str):
     return pwd_context.verify(contrasena_plana, contrasena_hasheada)
 
-# Función para generar un token JWT
-def crear_token_acceso(data: dict, expires_delta: Optional[timedelta] = None):
-    to_encode = data.copy()
-    if expires_delta:
-        expire = datetime.utcnow() + expires_delta
-    else:
-        expire = datetime.utcnow() + timedelta(minutes=15)
-    to_encode.update({"exp": expire})
-    encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
-    return encoded_jwt
-
-# Lógica del login
+# Función para autenticar al usuario
 def autenticar_usuario(db: Session, username: str, password: str):
     # Buscar al usuario por correo electrónico
     usuario = db.query(Usuario).filter(Usuario.Correo_Electronico == username).first()
