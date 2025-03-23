@@ -20,6 +20,6 @@ class TbbHorarios(Base):
     Fecha_Registro = Column(DateTime, nullable=False)
     Fecha_Actualizacion = Column(DateTime, nullable=False)
     Estatus = Column(SmallInteger, nullable=False,default=1)
-    Id_Sucursal = Column(Integer,unique=True)
-    Id_Servicio = Column(Integer,unique=True)
+    Id_Sucursal = Column(Integer)
+    Id_Servicio = Column(Integer)
 
