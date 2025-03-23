@@ -69,3 +69,56 @@ def autenticar_usuario(db: Session, username: str, password: str):
         )
 
     return usuario
+
+# Función para obtener un usuario por su ID
+def obtener_usuario_por_id(db: Session, usuario_id: int):
+    """
+    Obtener un usuario por su ID.
+    """
+    return db.query(Usuario).filter(Usuario.ID == usuario_id).first()
+
+# Función para obtener actualizar un usuario por su ID
+def update_usuario(db: Session, usuario_id: int, usuario_data: UsuarioCreate):
+    """
+    Actualizar un usuario existente.
+    """
+    usuario = db.query(Usuario).filter(Usuario.ID == usuario_id).first()
+    if not usuario:
+        return None
+
+    # Verificar si el correo o nombre de usuario ya están registrados
+    if usuario_data.Correo_Electronico != usuario.Correo_Electronico:
+        db_usuario = db.query(Usuario).filter(Usuario.Correo_Electronico == usuario_data.Correo_Electronico).first()
+        if db_usuario:
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                detail="El correo electrónico ya está registrado",
+            )
+    
+    if usuario_data.Nombre_Usuario != usuario.Nombre_Usuario:
+        db_usuario = db.query(Usuario).filter(Usuario.Nombre_Usuario == usuario_data.Nombre_Usuario).first()
+        if db_usuario:
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                detail="El nombre de usuario ya está registrado",
+            )
+    
+    # Validar que la nueva contraseña tenga al menos 8 caracteres
+    if 'Contrasena' in usuario_data.dict(exclude_unset=True) and len(usuario_data.Contrasena) < 8:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="La contraseña debe tener al menos 8 caracteres",
+        )
+
+    # Actualizar los datos del usuario
+    for key, value in usuario_data.dict(exclude_unset=True).items():
+        setattr(usuario, key, value)
+
+    # Si se actualizó la contraseña, la hasheamos
+    if 'Contrasena' in usuario_data.dict(exclude_unset=True):
+        usuario.Contrasena = hash_contrasena(usuario_data.Contrasena)
+
+    usuario.Fecha_Actualizacion = datetime.now()  # Actualizar la fecha de modificación
+    db.commit()
+    db.refresh(usuario)
+    return usuario
