@@ -4,7 +4,7 @@ from schemas.colaborador import ColaboradorCreate, ColaboradorUpdate
 from fastapi import HTTPException, status
 from datetime import datetime
 
-
+# funcion para crear un nuevo colaborador
 def crear_colaborador(db: Session, colaborador: ColaboradorCreate):
     # Verificar si el correo ya está registrado
     db_colaborador = db.query(Colaborador).filter(
@@ -33,3 +33,39 @@ def crear_colaborador(db: Session, colaborador: ColaboradorCreate):
     db.refresh(nuevo_colaborador)
     return nuevo_colaborador
 
+#funcion para obtener todos los colaboradores
+def All_colaboradores(db: Session):
+    """
+    Obtener todos los colaboradores de la base de datos.
+    """
+    return db.query(Colaborador).all()
+
+#funcion para actualizar un colaborador
+def update_colaborador(db: Session, colaborador_id: int, colaborador_data: ColaboradorUpdate):
+    """
+    Actualizar un colaborador existente.
+    """
+    colaborador = db.query(Colaborador).filter(Colaborador.ID == colaborador_id).first()
+    if not colaborador:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Colaborador no encontrado")
+
+    for key, value in colaborador_data.dict(exclude_unset=True).items():
+        setattr(colaborador, key, value)
+
+    colaborador.Fecha_Actualizacion = datetime.now()  # Actualizar la fecha de modificación
+    db.commit()
+    db.refresh(colaborador)
+    return colaborador
+
+#funcion para eliminar un colaborador
+def delete_colaborador(db: Session, colaborador_id: int):
+    """
+    Eliminar un colaborador por su ID.
+    """
+    colaborador = db.query(Colaborador).filter(Colaborador.ID == colaborador_id).first()
+    if not colaborador:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Colaborador no encontrado")
+
+    db.delete(colaborador)
+    db.commit()
+    return colaborador

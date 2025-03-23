@@ -2,6 +2,8 @@ from sqlalchemy import Column, Integer, String, Boolean, DateTime, ForeignKey
 from sqlalchemy.orm import relationship
 from database import Base
 
+#modelo para la tabla de colaboradores
+#hereda de la clase Base de SQLAlchemy
 class Colaborador(Base):
     __tablename__ = "tbb_colaboradores"
     
