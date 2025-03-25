@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 from models.colaboradores import Colaborador
 from schemas.colaborador import ColaboradorCreate, ColaboradorResponse, ColaboradorUpdate
-from crud.colaborador import crear_colaborador, All_colaboradores, update_colaborador, delete_colaborador
+from crud.colaborador import crear_colaborador, All_colaboradores, update_colaborador, delete_colaborador,get_colaborador_by_id
 from database import get_db  # Asegúrate de importar get_db
 from datetime import timedelta
 from config.jwt import obtener_usuario_actual, ACCESS_TOKEN_EXPIRE_MINUTES  # Importa desde config/jwt.py
@@ -69,3 +69,20 @@ def eliminar_colaborador(
     # Llamar a la función de la capa CRUD
     colaborador_eliminado = delete_colaborador(db, colaborador_id)
     return colaborador_eliminado
+
+
+#ruta protegida para obtener un colaborador por ID
+@router.get("/colaborador/{colaborador_id}", response_model=ColaboradorResponse)
+def obtener_colaborador_por_id(
+    colaborador_id: int,
+    db: Session = Depends(get_db),
+    usuario_actual: Colaborador = Depends(obtener_usuario_actual)
+):
+    """
+    Endpoint para obtener un colaborador por su ID.
+    """
+    # Llamar a la función de la capa CRUD
+    colaborador = get_colaborador_by_id(db, colaborador_id)
+    if not colaborador:
+        raise HTTPException(status_code=404, detail="Colaborador no encontrado")
+    return colaborador

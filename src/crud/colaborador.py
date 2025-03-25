@@ -69,3 +69,13 @@ def delete_colaborador(db: Session, colaborador_id: int):
     db.delete(colaborador)
     db.commit()
     return colaborador
+
+#funcion para obtener un colaborador por su ID
+def get_colaborador_by_id(db: Session, colaborador_id: int):
+    """
+    Obtener un colaborador por su ID.
+    """
+    colaborador = db.query(Colaborador).filter(Colaborador.ID == colaborador_id).first()
+    if not colaborador:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Colaborador no encontrado")
+    return colaborador

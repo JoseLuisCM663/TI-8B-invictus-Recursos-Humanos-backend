@@ -19,4 +19,3 @@ class Colaborador(Base):
     Fecha_Registro = Column(DateTime, nullable=False)
     Fecha_Actualizacion = Column(DateTime, nullable=False)
 
-

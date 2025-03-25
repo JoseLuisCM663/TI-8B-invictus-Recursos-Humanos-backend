@@ -3,6 +3,7 @@ from routers import usuarios
 from routers import horarios
 from routers import colaborador
 from routers import quejas_sugerencias
+from routers import servicios
 from database import engine, Base
 from models.quejas_sugerencias import QuejasSugerencias
 
@@ -13,6 +14,7 @@ app.include_router(usuarios.router, prefix="/api/usuarios", tags=["Usuarios"])
 app.include_router(horarios.router, prefix="/api/horarios", tags=["Horarios"])
 app.include_router(colaborador.router, prefix="/api/colaboradores", tags=["Colaboradores"])
 app.include_router(quejas_sugerencias.router, prefix="/api/quejas_sugerencias", tags=["Quejas y Sugerencias"])
+app.include_router(servicios.router, prefix="/api/servicios", tags=["Servicios"])
 
 # Crear las tablas automáticamente al arrancar la aplicación
 @app.on_event("startup")
