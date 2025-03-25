@@ -2,6 +2,7 @@ from sqlalchemy import Column, Integer, String, Enum, Boolean, DateTime, Foreign
 from database import Base
 from datetime import datetime
 import enum
+from sqlalchemy.orm import relationship
 
 
 # Definimos el Enum para Tipo_Servicio
@@ -29,12 +30,17 @@ class TbbServicios(Base):
     __tablename__ = "tbb_servicios"
 
     ID = Column(Integer, primary_key=True, autoincrement=True)
-    Sucursal_ID = Column(Integer)  # Relación con Sucursales
-    Horario_ID = Column(Integer)  # Relación con Horarios
-    Colaborador_ID = Column(Integer)  # Relación con Colaboradores
+    Sucursal_ID = Column(Integer, ForeignKey('tbc_sucursales.Id'), nullable=False)  # Relación con Sucursales
+    Horario_ID = Column(Integer, ForeignKey('tbb_horarios.ID'), nullable=True)  # Relación con Horarios
+    Colaborador_ID = Column(Integer, ForeignKey('tbb_personas.ID'), nullable=False)  # Relación con Colaboradores
     Tipo_Servicio = Column(Enum(TipoServicio), nullable=False)
     Descripcion = Column(String(255), nullable=True)
     Comentarios = Column(String(200), nullable=True)
     Estatus = Column(Boolean, default=True)
     Fecha_Registro = Column(DateTime, default=datetime.utcnow)
     Fecha_Actualizacion = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+
+    # Relaciones
+    sucursal = relationship('TbcSucursales', backref='servicios')
+    horario = relationship('TbbHorarios', backref='servicios')
+    colaborador = relationship('TbbPersonas', backref='servicios')
