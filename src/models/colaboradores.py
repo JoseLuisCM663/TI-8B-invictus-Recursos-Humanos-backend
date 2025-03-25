@@ -9,9 +9,8 @@ class Colaborador(Base):
     
     ID = Column(Integer, primary_key=True, autoincrement=True, index=True)
     Nombre= Column(String(50))
-    Persona_Id = Column(Integer,unique=True)
-    Sucursal_Id = Column(Integer)
-    Servicio_Id = Column(Integer)
+    Persona_ID = Column(Integer,unique=True)
+    Horario_ID = Column(Integer)
     Correo_Electronico = Column(String(100), unique=True, index=True)
     Especialidad = Column(String(50), nullable=True)
     Numero_Telefonico_Movil = Column(String(20), nullable=True)

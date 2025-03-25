@@ -31,7 +31,7 @@ def crear_usuario(db: Session, usuario: UsuarioCreate):
         )
     # Crear el nuevo usuario
     nuevo_usuario = Usuario(
-        Persona_Id=usuario.Persona_Id if usuario.Persona_Id is not None else None,
+        Persona_ID=usuario.Persona_ID if usuario.Persona_ID is not None else None,
         Nombre_Usuario=usuario.Nombre_Usuario,
         Correo_Electronico=usuario.Correo_Electronico,
         Contrasena=hash_contrasena(usuario.Contrasena),

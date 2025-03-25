@@ -9,13 +9,10 @@ class TipoHorarioEnum(str, Enum):
     especial = "especial"
 
 class TbbHorariosBase(BaseModel):
-    ID_Colaborador: Optional[int] = None
     Tipo: TipoHorarioEnum
     Hora_Inicio: time
     Hora_Fin: time
     Estatus: int = 1
-    Id_Sucursal: Optional[int] = None
-    Id_Servicio: Optional[int] = None
 
     class Config:
         orm_mode = True

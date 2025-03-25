@@ -56,4 +56,3 @@ def obtener_queja_sugerencia_por_id(
         return get_queja_sugerencia_by_id(db=db, queja_sugerencia_id=queja_id)
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))
-    

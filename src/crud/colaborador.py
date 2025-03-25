@@ -18,9 +18,8 @@ def crear_colaborador(db: Session, colaborador: ColaboradorCreate):
     
     nuevo_colaborador = Colaborador(
         Nombre=colaborador.Nombre,
-        Persona_Id=colaborador.Persona_Id if colaborador.Persona_Id is not None else None,
-        Sucursal_Id=colaborador.Sucursal_Id if colaborador.Sucursal_Id is not None else None,
-        Servicio_Id=colaborador.Servicio_Id if colaborador.Servicio_Id is not None else None,
+        Persona_ID=colaborador.Persona_ID if colaborador.Persona_ID is not None else None,
+        Horario_ID=colaborador.Horario_ID if colaborador.Horario_ID is not None else None,
         Correo_Electronico=colaborador.Correo_Electronico,
         Especialidad=colaborador.Especialidad,
         Numero_Telefonico_Movil=colaborador.Numero_Telefonico_Movil,

@@ -17,10 +17,10 @@ class QuejasSugerencias(Base):
     __tablename__ = "tbd_quejas_sugerencias"
 
     ID = Column(Integer, primary_key=True, autoincrement=True)
-    Id_persona = Column(Integer)  # Relación opcional con otra tabla
-    descripcion = Column(Text, nullable=False)  # Campo obligatorio
-    tipo = Column(Enum(TipoQueja), nullable=False, default="sugerencia")  # Campo obligatorio
-    respuesta = Column(Text, nullable=True)  # Puede estar vacío inicialmente
-    estatus = Column(Enum(EstatusQueja), nullable=False, default="espera")
-    fecha_registro = Column(DateTime, nullable=False)
-    fecha_actualizacion = Column(DateTime, nullable=False)
+    Persona_ID = Column(Integer)  # Relación opcional con otra tabla
+    Descripcion = Column(Text, nullable=False)  # Campo obligatorio
+    Tipo = Column(Enum(TipoQueja), nullable=False, default="sugerencia")  # Campo obligatorio
+    Respuesta = Column(Text, nullable=True)  # Puede estar vacío inicialmente
+    Estatus = Column(Enum(EstatusQueja), nullable=False, default="espera")
+    Fecha_registro = Column(DateTime, nullable=False)
+    Fecha_actualizacion = Column(DateTime, nullable=False)

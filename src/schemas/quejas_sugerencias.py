@@ -16,11 +16,11 @@ class EstatusQueja(str, Enum):
 
 # Clase base para el modelo de QuejasSugerencias
 class QuejasSugerenciasBase(BaseModel):
-    Id_persona: Optional[int] = None  # Opcional
-    descripcion: str  # Campo obligatorio
-    tipo: TipoQueja  # Enum obligatorio
-    respuesta: Optional[str] = None  # Opcional
-    estatus: EstatusQueja  # Enum obligatorio
+    Persona_ID: Optional[int] = None  # Opcional
+    Descripcion: str  # Campo obligatorio
+    Tipo: TipoQueja  # Enum obligatorio
+    Respuesta: Optional[str] = None  # Opcional
+    Estatus: EstatusQueja  # Enum obligatorio
 
 # Clase para crear una nueva queja o sugerencia
 class QuejasSugerenciasCreate(QuejasSugerenciasBase):
@@ -32,9 +32,9 @@ class QuejasSugerenciasUpdate(QuejasSugerenciasBase):
 
 # Clase para la respuesta del modelo de QuejasSugerencias
 class QuejasSugerenciasResponse(QuejasSugerenciasBase):
-    id: int
-    fecha_registro: datetime
-    fecha_actualizacion: datetime
+    ID: int
+    Fecha_registro: datetime
+    Fecha_actualizacion: datetime
 
     class Config:
         orm_mode = True  # Habilita el modo ORM para trabajar con SQLAlchemy

@@ -6,6 +6,8 @@ from routers import quejas_sugerencias
 from routers import servicios
 from database import engine, Base
 from models.quejas_sugerencias import QuejasSugerencias
+from models.sucursales import TbcSucursales
+from models.personas import TbbPersonas
 
 app = FastAPI()
 

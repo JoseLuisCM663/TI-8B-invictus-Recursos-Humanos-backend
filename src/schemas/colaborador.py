@@ -13,15 +13,15 @@ class ColaboradorBase(BaseModel):
 #clase para crear un nuevo colaborador
 #hereda de la clase base ColaboradorBase
 class ColaboradorCreate(ColaboradorBase):
-    Persona_Id: Optional[int] = None
-    Sucursal_Id: Optional[int] = None
-    Servicio_Id: Optional[int] = None
+    Persona_ID: Optional[int] = None
+    Horario_ID: Optional[int] = None
 
 #clase para actualizar un colaborador existente
 class ColaboradorUpdate(ColaboradorBase):
-    Persona_Id: Optional[int] = None
-    Sucursal_Id: Optional[int] = None
-    Servicio_Id: Optional[int] = None
+    ID: Optional[int] = None
+    Persona_ID: Optional[int] = None
+    Horario_ID: Optional[int] = None
+
 
 #clase para la respuesta del colaborador
 class ColaboradorResponse(ColaboradorBase):
