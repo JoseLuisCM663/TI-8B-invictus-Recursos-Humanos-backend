@@ -7,6 +7,7 @@ from database import Base
 class Colaborador(Base):
     __tablename__ = "tbb_colaboradores"
     
+    
     ID = Column(Integer, primary_key=True, autoincrement=True, index=True)
     Nombre= Column(String(50))
     Persona_ID = Column(Integer, ForeignKey('tbb_personas.ID'), unique=True)  # Relación con TbbPersonas

@@ -30,7 +30,7 @@ class TbbServicios(Base):
     __tablename__ = "tbb_servicios"
 
     ID = Column(Integer, primary_key=True, autoincrement=True)
-    Sucursal_ID = Column(Integer, ForeignKey('tbc_sucursales.Id'), nullable=False)  # Relación con Sucursales
+    Sucursal_ID = Column(Integer, ForeignKey('tbc_sucursales.ID'), nullable=False)  # Relación con Sucursales
     Horario_ID = Column(Integer, ForeignKey('tbb_horarios.ID'), nullable=True)  # Relación con Horarios
     Colaborador_ID = Column(Integer, ForeignKey('tbb_personas.ID'), nullable=False)  # Relación con Colaboradores
     Tipo_Servicio = Column(Enum(TipoServicio), nullable=False)

@@ -8,6 +8,8 @@ from database import engine, Base
 from models.quejas_sugerencias import QuejasSugerencias
 from models.sucursales import TbcSucursales
 from models.personas import TbbPersonas
+from models.usuarios_roles import UserRoles
+from models.roles import Roles
 
 app = FastAPI()
 
