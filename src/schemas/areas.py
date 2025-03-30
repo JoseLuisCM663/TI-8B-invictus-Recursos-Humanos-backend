@@ -7,7 +7,7 @@ class AreaBase(BaseModel):
     Nombre: str
     Descripcion: Optional[str] = None
     Estatus: Optional[bool] = True  # 1 para 'activo', 0 para 'inactivo'
-    Sucursal_ID: int
+    Sucursal_ID: Optional[int] = None  # ID de la sucursal asociada
 
 class AreaCreate(AreaBase):
     pass

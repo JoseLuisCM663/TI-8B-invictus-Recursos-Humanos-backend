@@ -9,7 +9,7 @@ class Areas(Base):
     ID = Column(Integer, primary_key=True, autoincrement=True, index=True)
     Nombre = Column(String(80))
     Descripcion = Column(String(80))
-    Sucursal_ID = Column(Integer, ForeignKey('tbc_sucursales.ID'), nullable=False)
+    Sucursal_ID = Column(Integer, ForeignKey('tbc_sucursales.ID'))
     Estatus = Column(Boolean, default=True)  # 1 para 'activo', 0 para 'inactivo'
     Fecha_Registro = Column(DateTime, default=datetime.utcnow)
     Fecha_Actualizacion = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
