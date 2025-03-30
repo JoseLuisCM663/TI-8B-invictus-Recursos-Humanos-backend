@@ -6,23 +6,11 @@ from datetime import datetime
 
 # funcion para crear un nuevo colaborador
 def crear_colaborador(db: Session, colaborador: ColaboradorCreate):
-    # Verificar si el correo ya está registrado
-    db_colaborador = db.query(Colaborador).filter(
-        (Colaborador.Correo_Electronico == colaborador.Correo_Electronico)
-    ).first()
-    if db_colaborador:
-        raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST,
-            detail="El correo electrónico ya está registrado",
-        )
     
     nuevo_colaborador = Colaborador(
-        Nombre=colaborador.Nombre,
-        Persona_ID=colaborador.Persona_ID if colaborador.Persona_ID is not None else None,
+        Usuario_Roles_ID=colaborador.Usuario_Roles_ID if colaborador.Usuario_Roles_ID is not None else None,
         Horario_ID=colaborador.Horario_ID if colaborador.Horario_ID is not None else None,
-        Correo_Electronico=colaborador.Correo_Electronico,
         Especialidad=colaborador.Especialidad,
-        Numero_Telefonico_Movil=colaborador.Numero_Telefonico_Movil,
         Estatus=colaborador.Estatus,
         Fecha_Registro=datetime.now(),  # Establecer la fecha de registro actual
         Fecha_Actualizacion=datetime.now(),  # Establecer la fecha de actualización actual

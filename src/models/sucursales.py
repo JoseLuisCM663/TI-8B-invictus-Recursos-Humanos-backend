@@ -8,7 +8,7 @@ from sqlalchemy.orm import relationship
 class TbcSucursales(Base):
     __tablename__ = 'tbc_sucursales'
 
-    Id = Column(Integer, primary_key=True, autoincrement=True)
+    ID = Column(Integer, primary_key=True, autoincrement=True)
     Nombre = Column(String(60), nullable=False)
     Direccion = Column(String(150), nullable=False)
     Responsable_ID = Column(Integer, ForeignKey('tbb_personas.ID'), nullable=True)  # Relación con tbb_personas

@@ -1,9 +1,27 @@
 from models.quejas_sugerencias import QuejasSugerencias
 from sqlalchemy.orm import Session
 from datetime import datetime
-from schemas.quejas_sugerencias import QuejasSugerenciasUpdate
+from schemas.quejas_sugerencias import QuejasSugerenciasUpdate,QuejasSugerenciasCreate,QuejasSugerenciasResponse
 from fastapi import HTTPException
 
+
+def create_quejas_sugerencias(db:Session,quejas_sugerencias:QuejasSugerenciasCreate):
+    nuevo_quejas_sugerencia = QuejasSugerencias(
+        Usuario_Roles_ID=quejas_sugerencias.Usuario_Roles_ID,
+        Sucursal_ID=quejas_sugerencias.Sucursal_ID,
+        Descripcion=quejas_sugerencias.Descripcion,
+        Tipo=quejas_sugerencias.Tipo,
+        Respuesta=quejas_sugerencias.Respuesta,
+        Estatus=quejas_sugerencias.Estatus,
+        Fecha_registro=datetime.now(),
+        Fecha_actualizacion=datetime.now()
+    )
+    db.add(nuevo_quejas_sugerencia)
+    db.commit()
+    db.refresh(nuevo_quejas_sugerencia)
+    
+    return nuevo_quejas_sugerencia
+    
 
 def All_quejas_sugerencias(db: Session):
     """

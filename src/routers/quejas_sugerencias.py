@@ -1,12 +1,28 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
-from schemas.quejas_sugerencias import QuejasSugerenciasCreate,QuejasSugerenciasUpdate
+from schemas.quejas_sugerencias import QuejasSugerenciasCreate,QuejasSugerenciasUpdate,QuejasSugerenciasResponse
 from models.usuarios import Usuario
-from crud.quejas_sugerencias import All_quejas_sugerencias,update_queja_sugerencia,get_queja_sugerencia_by_id
+from crud.quejas_sugerencias import All_quejas_sugerencias,update_queja_sugerencia,get_queja_sugerencia_by_id,create_quejas_sugerencias
 from config.jwt import obtener_usuario_actual  # Dependencia que verifica al usuario autenticado
 from database import get_db
 
 router = APIRouter()
+
+#ruta protegida para crear una nueva queja o sugerencia
+@router.post("/quejas_sugerencias/", response_model=QuejasSugerenciasResponse)
+def crear_quejas_sugerencias(
+    quejas_sugerencias: QuejasSugerenciasCreate,
+    db: Session = Depends(get_db),
+    usuario: Usuario = Depends(obtener_usuario_actual)  # Verifica que el usuario esté autenticado
+):
+    """
+    Endpoint protegido para crear una nueva queja o sugerencia.
+    Requiere autenticación.
+    """
+    try:
+        return create_quejas_sugerencias(db=db, quejas_sugerencias=quejas_sugerencias)
+    except Exception as e:
+        raise HTTPException(status_code=400, detail=str(e)) 
 
 # Ruta protegida que requiere autenticación
 @router.put("/quejas_sugerencias/{queja_id}", response_model=QuejasSugerenciasCreate)

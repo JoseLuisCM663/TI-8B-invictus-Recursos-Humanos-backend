@@ -11,20 +11,19 @@ class TipoQueja(enum.Enum):
 
 class EstatusQueja(enum.Enum):
     respondida = "respondida"
-    espera = "espera"
+    pendiente = "pendiente"
     archivada = "archivada"
 
 class QuejasSugerencias(Base):
     __tablename__ = "tbd_quejas_sugerencias"
 
     ID = Column(Integer, primary_key=True, autoincrement=True)
-    Persona_ID = Column(Integer, ForeignKey('tbb_personas.ID'), nullable=True)  # Relación con TbbPersonas
+    Usuario_Roles_ID = Column(Integer, ForeignKey('tbd_usuarios_roles.ID'), unique=True)  # aqui es usuario roles
+    Sucursal_ID = Column(Integer, ForeignKey('tbc_sucursales.ID'),unique=True )
     Descripcion = Column(Text, nullable=False)  # Campo obligatorio
     Tipo = Column(Enum(TipoQueja), nullable=False, default="sugerencia")  # Campo obligatorio
-    Respuesta = Column(Text, nullable=True)  # Puede estar vacío inicialmente
+    Respuesta = Column(Text, nullable=True)  # verificar si es campo o nueva tabla
     Estatus = Column(Enum(EstatusQueja), nullable=False, default="espera")
     Fecha_registro = Column(DateTime, nullable=False)
     Fecha_actualizacion = Column(DateTime, nullable=False)
 
-    # Relación con la tabla TbbPersonas (opcional)
-    persona = relationship('TbbPersonas', backref='quejas_sugerencias')

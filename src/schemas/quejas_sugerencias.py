@@ -10,13 +10,14 @@ class TipoQueja(str, Enum):
     reclamo = "reclamo"
 
 class EstatusQueja(str, Enum):
+    pendiente = "pendiente"
     respondida = "respondida"
-    espera = "espera"
     archivada = "archivada"
 
 # Clase base para el modelo de QuejasSugerencias
 class QuejasSugerenciasBase(BaseModel):
-    Persona_ID: Optional[int] = None  # Opcional
+    Usuario_Roles_ID: Optional[int] = None  # Opcional
+    Sucursal_ID: Optional[int] = None  # Opcional
     Descripcion: str  # Campo obligatorio
     Tipo: TipoQueja  # Enum obligatorio
     Respuesta: Optional[str] = None  # Opcional
@@ -28,6 +29,7 @@ class QuejasSugerenciasCreate(QuejasSugerenciasBase):
 
 # Clase para actualizar una queja o sugerencia existente
 class QuejasSugerenciasUpdate(QuejasSugerenciasBase):
+    Respuesta: Optional[str] = None  # Opcional
     pass  # Hereda todo de la clase base
 
 # Clase para la respuesta del modelo de QuejasSugerencias
