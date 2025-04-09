@@ -11,6 +11,7 @@ from models.personas import TbbPersonas
 from models.usuarios_roles import UserRoles
 from models.roles import Roles
 from models.areas import Areas
+from routers import dashboard
 from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
@@ -32,6 +33,7 @@ app.include_router(horarios.router, prefix="/api/horarios", tags=["Horarios"])
 app.include_router(colaborador.router, prefix="/api/colaboradores", tags=["Colaboradores"])
 app.include_router(quejas_sugerencias.router, prefix="/api/quejas_sugerencias", tags=["Quejas y Sugerencias"])
 app.include_router(areas.router, prefix="/api/areas", tags=["Areas"])
+app.include_router(dashboard.router, prefix="/api/dashboard", tags=["Dashboard"]) 
 
 # Crear las tablas automáticamente al arrancar la aplicación
 @app.on_event("startup")
