@@ -11,8 +11,20 @@ from models.personas import TbbPersonas
 from models.usuarios_roles import UserRoles
 from models.roles import Roles
 from models.areas import Areas
+from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
+
+
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:8080"],  # permite solo ese origen
+    allow_credentials=True,
+    allow_methods=["*"],  # puedes limitar a ['POST'] si quieres
+    allow_headers=["*"],  # puedes limitar a ['Content-Type'] si quieres
+)
+
 
 # Asegúrate de que los prefijos sean diferentes si ambos routers contienen rutas diferentes.
 app.include_router(usuarios.router, prefix="/api/usuarios", tags=["Usuarios"])
