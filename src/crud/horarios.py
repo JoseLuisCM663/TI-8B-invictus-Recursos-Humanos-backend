@@ -12,7 +12,6 @@ def create_horario(db: Session, horario: TbbHorariosCreate):
         Fecha_Registro=datetime.now(),  # Se establece automáticamente
         Fecha_Actualizacion=datetime.now(),  # Se establece automáticamente
         Estatus=horario.Estatus,  # Valor por defecto
-
     )
 
     # Agregar la nueva instancia a la sesión de la base de datos
