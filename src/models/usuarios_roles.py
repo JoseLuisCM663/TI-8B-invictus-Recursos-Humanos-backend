@@ -13,5 +13,4 @@ class UserRoles(Base):
     Fecha_Registro = Column(DateTime, default=datetime.utcnow)
     Fecha_Actualizacion = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
-    Usuario_Registro = Column(Integer, ForeignKey('tbb_usuarios.ID'), nullable=False)
-    Usuario_Rol = Column(Integer, ForeignKey('tbc_roles.ID'), nullable=False)
+

@@ -10,7 +10,7 @@ class Colaborador(Base):
     
     ID = Column(Integer, primary_key=True, autoincrement=True, index=True)
    # Nombre= Column(String(50))
-    Usuario_Roles_ID = Column(Integer, ForeignKey('tbd_usuarios_roles.ID'), unique=True)  # en lugar de persona a usuario roles
+    Usuario_Roles_ID = Column(Integer, ForeignKey('tbd_usuarios_roles.ID'))  # en lugar de persona a usuario roles
     Horario_ID = Column(Integer, ForeignKey('tbb_horarios.ID'))  # Relación con TbbHorarios
   #  Correo_Electronico = Column(String(100), unique=True, index=True)
     Especialidad = Column(String(50), nullable=True) #verificar si si o no o las opciomes
