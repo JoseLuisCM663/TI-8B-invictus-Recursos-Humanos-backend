@@ -8,3 +8,4 @@ class ContactoBase(BaseModel):
     celular: str
     comentario: Optional[str] = None
     fecha_registro: datetime = datetime.now()
+    fecha_actualizacion: datetime = datetime.now()
