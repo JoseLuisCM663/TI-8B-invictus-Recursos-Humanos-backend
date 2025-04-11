@@ -3,6 +3,7 @@ from dotenv import load_dotenv
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker, Session
+from pymongo import MongoClient
 
 # Cargar las variables de entorno desde el archivo .env
 load_dotenv()
@@ -32,3 +33,15 @@ def get_db() -> Session:
         yield db
     finally:
         db.close()
+
+# Conexión directa a MongoDB Atlas (sin .env)
+MONGO_URI = "mongodb+srv://joseluis:1234@cluster0.1sonbs2.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+MONGO_DB = "db_gym"  # cámbialo por el nombre que quieras usar
+
+# Crear cliente y base de datos
+mongo_client = MongoClient(MONGO_URI)
+mongo_db = mongo_client[MONGO_DB]
+
+# Función para obtener la base de datos Mongo
+def get_mongo_db():
+    return mongo_db
